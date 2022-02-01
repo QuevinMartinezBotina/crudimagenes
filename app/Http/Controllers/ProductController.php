@@ -37,7 +37,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'imagen' => 'required|image|mimes:jpeg,png,svg|max:1024',
+        ]);
+
+        $producto = $request->all();
+        if ($imagen = $request->file('imagen')) {
+            $rutaGuardarImg = 'imagen/';
+            $imagenProducto = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImg, $imagenProducto);
+            $producto['imagen'] = "$imagenProducto";
+        }
+        //var_dump($producto['imagen']);
+        Product::create($producto);
+
+        return redirect()->route('productos.index');
     }
 
     /**
@@ -80,8 +96,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Product $producto)
     {
-        //
+        $producto->delete();
+
+        return redirect()->route('productos.index');
     }
 }

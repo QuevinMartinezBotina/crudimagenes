@@ -67,34 +67,28 @@
 <script>
     (function() {
         'use strict'
-        //debemos crear la close formELiminar dentro del form del boton borrar
-        //recordar que cada registro a eliminor esto contenido en un form
-        var forms - document.querySelectorAll('.formEliminar')
+        //debemos crear la clase formEliminar dentro del form del boton borrar
+        //recordar que cada registro a eliminar esta contenido en un form
+        var forms = document.querySelectorAll('.formEliminar')
         Array.prototype.slice.call(forms)
             .forEach(function(form) {
-                form.addEventlistener('submit', function(event) {
+                form.addEventListener('submit', function(event) {
                     event.preventDefault()
                     event.stopPropagation()
-
                     Swal.fire({
-                        title: '¿Desea elimnar el registro?',
-                        text: "Este sera elimnado permanentemente",
-                        icon: 'warning',
+                        title: '¿Confirma la eliminación del registro?',
+                        icon: 'info',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si, eliminar!'
+                        confirmButtonColor: '#20c997',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Confirmar'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             this.submit();
-                            Swal.fire(
-                                'Elimiando!',
-                                'El registro se ha elimando con exito.',
-                                'success'
-                            )
+                            Swal.fire('¡Eliminado!',
+                                'El registro ha sido eliminado exitosamente.', 'success');
                         }
                     })
-
                 }, false)
             })
     })()
