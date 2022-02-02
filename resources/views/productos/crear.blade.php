@@ -30,7 +30,7 @@
 
                     <div class="mb-3">
                         <label for="" class="form-label img-fluid">Imagen Seleccionada</label>
-                        <img id="imagenSeleccionada">
+                        <img class="w-50 img-fluid" id="imagenSeleccionada">
                     </div>
 
                     <button type="submit" class="btn btn-success">Crear</button>

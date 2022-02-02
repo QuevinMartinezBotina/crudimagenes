@@ -32,8 +32,8 @@
                                     <td>{{ $producto->id }}</td>
                                     <td>{{ $producto->nombre }}</td>
                                     <td>{{ $producto->descripcion }}</td>
-                                    <td>
-                                        <img src="/imagen/{{ $producto->imagen }}" alt="">
+                                    <td class="w-25">
+                                        <img class="w-50 img-fluid" src="/imagen/{{ $producto->imagen }}" alt="">
                                     </td>
                                     <td>
                                         {{-- Edit --}}

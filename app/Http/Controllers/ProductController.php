@@ -73,9 +73,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Product $producto)
     {
-        //
+        return view('productos.editar', compact('producto'));
     }
 
     /**
@@ -85,9 +85,26 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $producto)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+        ]);
+
+        $prod = $request->all();
+        if ($imagen = $request->file('imagen')) {
+            $rutaGuardarImg = 'imagen/';
+            $imagenProducto = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImg, $imagenProducto);
+            $prod['imagen'] = "$imagenProducto";
+        } else {
+            unset($prod['imagen']);
+        }
+        //var_dump($producto['imagen']);
+        $producto->update($prod);
+
+        return redirect()->route('productos.index');
     }
 
     /**
